@@ -1,1 +1,1 @@
-# ci-cd-theory-into-practice
+# CI⚡CD: the theory put into practice
