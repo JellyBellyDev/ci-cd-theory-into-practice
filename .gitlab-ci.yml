@@ -1,0 +1,28 @@
+stages:
+  - build
+  - test
+  - deploy
+
+default:
+  image: chrisb9/php8:alpine-nginx-dev
+
+build-job:
+  stage: build
+  script:
+    - composer install
+
+.test-phpunit:
+  stage: test
+  script:
+    - bin/phpunit
+
+test-php-cs-fixer:
+  stage: test
+  script:
+    - vendor/bin/php-cs-fixer fix --verbose --diff --dry-run
+
+
+.deploy-prod:
+  stage: deploy
+  script:
+    - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
