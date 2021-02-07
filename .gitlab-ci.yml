@@ -32,7 +32,7 @@ test-php-cs-fixer:
   script:
     - vendor/bin/php-cs-fixer fix --verbose --diff --dry-run
 
-.test-phpunit:
+test-phpunit:
   stage: test
   dependencies:
     - install-deps

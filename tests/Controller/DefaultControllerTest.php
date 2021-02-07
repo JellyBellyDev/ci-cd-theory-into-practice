@@ -13,7 +13,7 @@ class DefaultControllerTest extends WebTestCase
 
         self::assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $response = \json_decode((string)$client->getResponse()->getContent(), true);
+        $response = \json_decode((string) $client->getResponse()->getContent(), true);
         self::assertIsArray($response);
         self::assertEquals('Are you a curious dolphin?', $response['message']);
     }
@@ -25,7 +25,7 @@ class DefaultControllerTest extends WebTestCase
 
         self::assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $response = \json_decode((string)$client->getResponse()->getContent(), true);
+        $response = \json_decode((string) $client->getResponse()->getContent(), true);
         self::assertIsArray($response);
         self::assertEquals('Hello Puggers', $response['message']);
     }
