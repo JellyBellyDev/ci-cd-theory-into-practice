@@ -4,7 +4,7 @@ stages:
   - deploy
 
 default:
-  image: chrisb9/php8:alpine-nginx-dev
+  image: phpdockerio/php80-cli
 
 build-job:
   stage: build
