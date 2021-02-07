@@ -25,11 +25,6 @@ install-deps:
       - composer.lock
       - symfony.lock
 
-.test-phpunit:
-  stage: test
-  script:
-    - bin/phpunit
-
 test-php-cs-fixer:
   stage: test
   dependencies:
@@ -37,6 +32,12 @@ test-php-cs-fixer:
   script:
     - vendor/bin/php-cs-fixer fix --verbose --diff --dry-run
 
+.test-phpunit:
+  stage: test
+  dependencies:
+    - install-deps
+  script:
+    - ./bin/phpunit
 
 .deploy-prod:
   stage: deploy
