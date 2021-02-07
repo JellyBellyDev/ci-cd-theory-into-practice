@@ -24,8 +24,8 @@
         "symfony/yaml": "5.2.*"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
         "friendsofphp/php-cs-fixer": "^2.18",
+        "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "5.2.*",
         "symfony/phpunit-bridge": "^5.2"
     },

@@ -1,1 +1,3 @@
 # CI⚡CD: the theory put into practice
+[![pipeline status](https://gitlab.com/JellyBellyDev/ci-cd-theory-into-practice/badges/master/pipeline.svg)](https://gitlab.com/JellyBellyDev/ci-cd-theory-into-practice/-/commits/master)
+[![coverage report](https://gitlab.com/JellyBellyDev/ci-cd-theory-into-practice/badges/master/coverage.svg)](https://gitlab.com/JellyBellyDev/ci-cd-theory-into-practice/-/commits/master)

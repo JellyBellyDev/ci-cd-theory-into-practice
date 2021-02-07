@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - optimize
   - deploy
 
 default:
@@ -32,12 +33,62 @@ test-php-cs-fixer:
   script:
     - vendor/bin/php-cs-fixer fix --verbose --diff --dry-run
 
+test-lint-yaml-config:
+  stage: test
+  dependencies:
+    - install-deps
+  script:
+    - bin/console lint:yaml config
+
 test-phpunit:
   stage: test
   dependencies:
     - install-deps
   script:
     - ./bin/phpunit
+
+test-phpunit-coverage:
+  stage: test
+  dependencies:
+    - install-deps
+  script:
+    - XDEBUG_MODE=coverage .bin/phpunit --colors=never --coverage-text
+
+
+.install_template: &install_template
+  script:
+    - composer install --no-dev --optimize-autoloader
+    - composer dump-autoload --no-dev --classmap-authoritative
+    - composer dump-env prod
+  artifacts:
+    expire_in: 3 hours
+    untracked: true
+    paths:
+      - bin/**
+      - config/**
+      - public/**
+      - src/**
+      - vendor/**
+      - .env
+      - .env.local
+      - .env.local.php
+      - composer.json
+
+optimize-install:staging:
+  stage: optimize
+  <<: *install_template
+  before_script:
+    - echo "APP_ENV=staging" >> .env.local
+  only:
+    - master
+
+optimize-install:prod:
+  stage: optimize
+  <<: *install_template
+  before_script:
+    - echo "APP_ENV=staging" >> .env.local
+  only:
+    - tags
 
 .deploy-prod:
   stage: deploy
