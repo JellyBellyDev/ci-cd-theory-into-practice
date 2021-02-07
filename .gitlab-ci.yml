@@ -10,6 +10,20 @@ install-deps:
   stage: build
   script:
     - composer install
+  artifacts:
+    expire_in: 3 hours
+    untracked: true
+    paths:
+      - bin/**
+      - config/**
+      - public/**
+      - src/**
+      - vendor/**
+      - .env
+      - .php_cs.dist
+      - composer.json
+      - composer.lock
+      - symfony.lock
 
 .test-phpunit:
   stage: test
