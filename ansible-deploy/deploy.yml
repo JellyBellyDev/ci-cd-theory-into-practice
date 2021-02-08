@@ -1,0 +1,7 @@
+- name: "Deploy of CI⚡CD: the theory put into practice"
+  hosts: all
+  any_errors_fatal: true
+  vars_files:
+    - "user-vars.yml"
+  roles:
+    - service

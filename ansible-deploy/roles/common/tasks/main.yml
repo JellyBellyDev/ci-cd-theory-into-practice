@@ -1,0 +1,3 @@
+- name: Check for 'app_version' parameter
+  fail: msg="The required parameter 'app_version' is missing"
+  when: app_version is not defined

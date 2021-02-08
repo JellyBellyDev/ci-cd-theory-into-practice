@@ -1,0 +1,3 @@
+- name: Cachetool Opcache Reset
+  shell : "php {{deploy_helper.shared_path}}/cachetool.phar opcache:reset"
+  listen: "cachetool_opcache_reset"

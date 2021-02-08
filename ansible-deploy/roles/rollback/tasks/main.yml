@@ -1,0 +1,22 @@
+- name: "Test connection"
+  ping:
+
+- name: Gather facts by deploy helper
+  deploy_helper:
+    path: "{{ home_path }}"
+    state: query
+
+- name: Check if prev link exists
+  stat:
+    path: "{{ current_prev_path }}"
+    follow: True
+  register: prev_link_status
+
+- name: Fail if prev release is missing
+  fail: msg="Prev release is missing"
+  when: not prev_link_status.stat.exists
+
+- name: Rollback version
+  command: "mv -T {{ current_prev_path }} {{ current_path }}"
+  notify:
+      - cachetool_opcache_reset

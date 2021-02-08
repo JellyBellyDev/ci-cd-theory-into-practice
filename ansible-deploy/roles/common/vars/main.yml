@@ -1,0 +1,2 @@
+current_datetime: "{{ lookup('pipe','date +%Y%m%d%H%M%S') }}"
+release_name: "{{ current_datetime }}_{{ app_version | regex_replace('^\\/|\\/$', '') | regex_replace('\\/', '_') }}"

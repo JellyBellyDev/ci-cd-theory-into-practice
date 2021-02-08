@@ -1,0 +1,5 @@
+gitlab_project_id: 24210173
+gitlab_job_name: "prepare:{{ app_env }}"
+
+artifact_url: "https://gitlab.com/api/v4/projects/{{ gitlab_project_id }}/jobs/artifacts/{{ app_version | replace('/', '%2F') }}/download?job={{ gitlab_job_name }}&private_token={{ gitlab_access_token }}"
+artifact_url_ci: "https://gitlab.com/api/v4/projects/{{ gitlab_project_id }}/jobs/{{ ci_job_id }}/artifacts?private_token={{ gitlab_access_token }}"

@@ -1,0 +1,6 @@
+- name: "Rollback deploy of CI⚡CD: the theory put into practice"
+  hosts: all
+  vars_files:
+    - "user-vars.yml"
+  roles:
+    - rollback
