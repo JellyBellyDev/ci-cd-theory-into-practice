@@ -59,7 +59,7 @@ phpunit-coverage:
   script:
     - composer install --no-dev --optimize-autoloader
     - composer dump-autoload --no-dev --classmap-authoritative
-    - composer dump-env prod
+    - composer dump-env
   artifacts:
     expire_in: 3 hours
     untracked: true

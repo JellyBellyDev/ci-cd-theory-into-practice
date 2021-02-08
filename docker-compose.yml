@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+
+  app:
+    build:
+      context: .docker/development
+    working_dir: /application
+    stdin_open: true
+    volumes:
+      - .:/application:cached

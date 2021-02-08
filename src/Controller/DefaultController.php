@@ -19,7 +19,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/hello/{name}", name="app_hello")
      */
-    public function number(string $name): JsonResponse
+    public function hello(string $name): JsonResponse
     {
         return $this->json(['message' => 'Hello ' . $name], JsonResponse::HTTP_OK);
     }
