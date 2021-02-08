@@ -5,7 +5,7 @@ stages:
   - deploy
 
 default:
-  image: phpdockerio/php80-cli
+  image: jellybellydev/ci-cd-theory-into-practice:latest
 
 install-deps:
   stage: build
