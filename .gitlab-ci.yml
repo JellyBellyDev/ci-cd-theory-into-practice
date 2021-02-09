@@ -95,9 +95,9 @@ prepare:prod:
   before_script:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
-    - eval $(ssh-agent -s)
-    - echo "$DEPLOY_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+#    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
+#    - eval $(ssh-agent -s)
+#    - echo "$DEPLOY_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
     - echo "$DEPLOY_PRIVATE_KEY" >> ~/.ssh/id_rsa
     - ssh-keyscan -H $HOST_FOR_SSH_KEYSCAN >> ~/.ssh/known_hosts
     - if [[ -f gitlab_variables ]]; then source gitlab_variables; fi
@@ -115,7 +115,7 @@ deploy:staging:
     - prepare:staging
   script:
     - echo "Deploy $CI_COMMIT_REF_NAME to staging server"
-    - ansible-playbook deploy.yml -i inventories/staging -e "app_version=$CI_COMMIT_REF_NAME ci_job_id=$CI_JOB_ID_ARTIFACTS"
+#    - ansible-playbook deploy.yml -i inventories/staging -e "app_version=$CI_COMMIT_REF_NAME ci_job_id=$CI_JOB_ID_ARTIFACTS"
     - ansible-playbook deploy.yml -i inventories/staging -e "app_version=$CI_COMMIT_REF_NAME"
   only:
     - master
