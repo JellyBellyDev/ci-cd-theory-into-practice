@@ -90,7 +90,32 @@ prepare:prod:
   only:
     - tags
 
-.deploy-prod:
+.deploy_template: &deploy_template
+  image: spy86/ansible:latest
+  before_script:
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
+    - eval $(ssh-agent -s)
+    - echo "$DEPLOY_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - echo "$DEPLOY_PRIVATE_KEY" >> ~/.ssh/id_rsa
+    - ssh-keyscan -H $HOST_FOR_SSH_KEYSCAN >> ~/.ssh/known_hosts
+    - if [[ -f gitlab_variables ]]; then source gitlab_variables; fi
+    - cd ansible-deploy
+    - 'echo "gitlab_access_token: \"${GITLAB_ACCESS_TOKEN_API}\"" > user-vars.yml'
+    - 'echo "ssh_private_key_file: \"~/.ssh/id_rsa\"" >> user-vars.yml'
+
+deploy:staging:
   stage: deploy
+  variables:
+    HOST_FOR_SSH_KEYSCAN: "161.97.172.133"
+    DEPLOY_PRIVATE_KEY: $MY_DEPLOY_PRIVATE_KEY
+  <<: *deploy_template
+  dependencies:
+    - prepare:staging
   script:
-    - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
+    - echo "Deploy $CI_COMMIT_REF_NAME to staging server"
+    - ansible-playbook deploy.yml -i inventories/staging -e "app_version=$CI_COMMIT_REF_NAME ci_job_id=$CI_JOB_ID_ARTIFACTS"
+    - ansible-playbook deploy.yml -i inventories/staging -e "app_version=$CI_COMMIT_REF_NAME"
+  only:
+    - master
