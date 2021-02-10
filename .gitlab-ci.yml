@@ -111,7 +111,7 @@ prepare:production:
     - 'echo "gitlab_access_token: \"${GITLAB_ACCESS_TOKEN_API}\"" >> user-vars.yml'
     - 'echo "telegram_token: \"${TELEGRAM_TOKEN}\"" >> user-vars.yml'
     - 'echo "telegram_chat_id: \"${TELEGRAM_CHAT_ID}\"" >> user-vars.yml'
-    - less user-vars.yml
+    - cat user-vars.yml
 
 
 deploy:staging:
