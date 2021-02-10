@@ -109,6 +109,8 @@ prepare:production:
     - if [[ -f gitlab_variables ]]; then source gitlab_variables; fi
     - cd ansible-deploy
     - 'echo "gitlab_access_token: \"${GITLAB_ACCESS_TOKEN_API}\"" > user-vars.yml'
+    - 'echo "telegram_token: \"${TELEGRAM_TOKEN}\"" > user-vars.yml'
+    - 'echo "telegram_chat_id: \"${TELEGRAM_CHAT_ID}\"" > user-vars.yml'
 
 
 deploy:staging:

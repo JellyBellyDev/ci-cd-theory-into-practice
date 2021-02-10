@@ -4,7 +4,7 @@
 
 - name: Send a message to Telegram Group
   community.general.telegram:
-    token: '1682226744:AAEwixxY7Jl1SueLq8E0eNGbPi1u2T65AMg'
-    chat_id: 576010219
+    token: "{{telegram_token}}"
+    chat_id: "{{telegram_chat_id}}"
     msg: Ansible task finished
-    listen: "send_notify_telegram"
+  listen: "send_notify_telegram"
