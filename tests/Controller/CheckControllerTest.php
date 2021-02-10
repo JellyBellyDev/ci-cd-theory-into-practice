@@ -9,7 +9,7 @@ class CheckControllerTest extends WebTestCase
     public function testIndex(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/check-sysadm');
+        $client->request('GET', '/healthz');
 
         self::assertEquals(200, $client->getResponse()->getStatusCode());
 

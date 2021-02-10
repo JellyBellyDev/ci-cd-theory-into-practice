@@ -120,7 +120,7 @@ deploy:staging:
     - prepare:staging
   <<: *deploy_template
   script:
-    - echo "Deploy $CI_COMMIT_REF_NAME to staging server"
+    - echo "Deploy of $CI_COMMIT_REF_NAME on staging server"
     - ansible-playbook deploy.yml -i inventories/staging -e "app_version=$CI_COMMIT_REF_NAME ci_job_id=$CI_JOB_ID_ARTIFACTS"
   only:
     - master
@@ -134,7 +134,7 @@ rollback:staging:
   dependencies: []
   <<: *deploy_template
   script:
-    - echo "Rollback $CI_COMMIT_REF_NAME to staging server"
+    - echo "Rollback of $CI_COMMIT_REF_NAME on staging server"
     - ansible-playbook rollback.yml -i inventories/staging
   only:
     - master
@@ -150,7 +150,7 @@ deploy:production:
     - prepare:production
   <<: *deploy_template
   script:
-    - echo "Deploy $CI_COMMIT_REF_NAME to production server"
+    - echo "Deploy of $CI_COMMIT_REF_NAME on production server"
     - ansible-playbook deploy.yml -i inventories/production -e "app_version=$CI_COMMIT_TAG ci_job_id=$CI_JOB_ID_ARTIFACTS"
   only:
     - tags
@@ -164,7 +164,7 @@ rollback:production:
   dependencies: []
   <<: *deploy_template
   script:
-    - echo "Rollback $CI_COMMIT_TAG to production server"
+    - echo "Rollback of $CI_COMMIT_TAG on production server"
     - ansible-playbook rollback.yml -i inventories/production
   only:
     - tags

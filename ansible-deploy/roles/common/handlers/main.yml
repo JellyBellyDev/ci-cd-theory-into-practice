@@ -1,3 +1,10 @@
 - name: Cachetool Opcache Reset
   shell : "php {{deploy_helper.shared_path}}/cachetool.phar opcache:reset"
   listen: "cachetool_opcache_reset"
+
+- name: Send a message to Telegram Group
+  community.general.telegram:
+    token: '1682226744:AAEwixxY7Jl1SueLq8E0eNGbPi1u2T65AMg'
+    chat_id: 576010219
+    msg: Ansible task finished
+    listen: "send_notify_telegram"

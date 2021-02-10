@@ -87,10 +87,11 @@
     keep_releases: 3
   notify:
     - cachetool_opcache_reset
+    - send_notify_telegram
 
 - name: Check app status
   uri:
-    url: "http://localhost/check-sysadm"
+    url: "http://localhost/healthz"
     method: GET
     headers:
       Host: "{{ check_host }}"
