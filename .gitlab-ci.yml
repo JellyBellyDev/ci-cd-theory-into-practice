@@ -61,6 +61,7 @@ phpunit-coverage:
     - composer install --no-dev --optimize-autoloader
     - composer dump-autoload --no-dev --classmap-authoritative
     - composer dump-env
+    - echo "export CI_JOB_ID_ARTIFACTS=\"$(echo "$CI_JOB_ID")\"" > gitlab_variables
   artifacts:
     expire_in: 3 hours
     untracked: true
@@ -120,8 +121,7 @@ deploy:staging:
   <<: *deploy_template
   script:
     - echo "Deploy $CI_COMMIT_REF_NAME to staging server"
-#    - ansible-playbook deploy.yml -i inventories/staging -e "app_version=$CI_COMMIT_REF_NAME ci_job_id=$CI_JOB_ID_ARTIFACTS"
-    - ansible-playbook deploy.yml -i inventories/staging -e "app_version=$CI_COMMIT_REF_NAME"
+    - ansible-playbook deploy.yml -i inventories/staging -e "app_version=$CI_COMMIT_REF_NAME ci_job_id=$CI_JOB_ID_ARTIFACTS"
   only:
     - master
 
@@ -151,7 +151,7 @@ deploy:production:
   <<: *deploy_template
   script:
     - echo "Deploy $CI_COMMIT_REF_NAME to production server"
-    - ansible-playbook deploy.yml -i inventories/production -e "app_version=$CI_COMMIT_TAG"
+    - ansible-playbook deploy.yml -i inventories/production -e "app_version=$CI_COMMIT_TAG ci_job_id=$CI_JOB_ID_ARTIFACTS"
   only:
     - tags
 
