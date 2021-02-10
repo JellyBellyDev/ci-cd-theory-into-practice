@@ -115,9 +115,9 @@ deploy:staging:
   variables:
     HOST_FOR_SSH_KEYSCAN: "161.97.172.133"
     DEPLOY_PRIVATE_KEY: $MY_DEPLOY_PRIVATE_KEY
-  <<: *deploy_template
   dependencies:
     - prepare:staging
+  <<: *deploy_template
   script:
     - echo "Deploy $CI_COMMIT_REF_NAME to staging server"
 #    - ansible-playbook deploy.yml -i inventories/staging -e "app_version=$CI_COMMIT_REF_NAME ci_job_id=$CI_JOB_ID_ARTIFACTS"
@@ -131,11 +131,13 @@ rollback:staging:
     HOST_FOR_SSH_KEYSCAN: "161.97.172.133"
     DEPLOY_PRIVATE_KEY: $MY_DEPLOY_PRIVATE_KEY
   when: manual
+  dependencies: []
   <<: *deploy_template
   script:
     - echo "Rollback $CI_COMMIT_REF_NAME to staging server"
     - ansible-playbook rollback.yml -i inventories/staging
-  dependencies: []
+  only:
+    - master
 
 
 deploy:production:
@@ -144,9 +146,9 @@ deploy:production:
     HOST_FOR_SSH_KEYSCAN: "161.97.172.133"
     DEPLOY_PRIVATE_KEY: $MY_DEPLOY_PRIVATE_KEY
   when: manual
-  <<: *deploy_template
   dependencies:
     - prepare:production
+  <<: *deploy_template
   script:
     - echo "Deploy $CI_COMMIT_REF_NAME to production server"
     - ansible-playbook deploy.yml -i inventories/production -e "app_version=$CI_COMMIT_TAG"
@@ -159,8 +161,8 @@ rollback:production:
     HOST_FOR_SSH_KEYSCAN: "161.97.172.133"
     DEPLOY_PRIVATE_KEY: $MY_DEPLOY_PRIVATE_KEY
   when: manual
-  <<: *deploy_template
   dependencies: []
+  <<: *deploy_template
   script:
     - echo "Rollback $CI_COMMIT_TAG to production server"
     - ansible-playbook rollback.yml -i inventories/production
