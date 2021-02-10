@@ -67,11 +67,6 @@
     state: hard
   when: previous_release_path_status.stat.exists
 
-- name: Remove ansible-deploy directory
-  file:
-    state: absent
-    path: "{{ deploy_helper.new_release_path }}/ansible-deploy"
-
 - name: Check cachetool.phar already exists
   stat: path="{{deploy_helper.shared_path}}/cachetool.phar"
   register: stat_cachetool_result

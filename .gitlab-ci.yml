@@ -100,7 +100,6 @@ prepare:prod:
     - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
     ## Run ssh-agent (inside the build environment)
     - eval $(ssh-agent -s)
-    - ls -la ~/.ssh/
     ## Add the SSH key stored in DEPLOY_PRIVATE_KEY variable to the agent store
     - echo "$DEPLOY_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     ## Verifying the SSH host keys
@@ -108,8 +107,6 @@ prepare:prod:
     - if [[ -f gitlab_variables ]]; then source gitlab_variables; fi
     - cd ansible-deploy
     - 'echo "gitlab_access_token: \"${GITLAB_ACCESS_TOKEN_API}\"" > user-vars.yml'
-    - 'echo "ssh_private_key_file: \"~/.ssh/id_rsa\"" >> user-vars.yml'
-    - ls -la ~/.ssh/
 
 deploy:staging:
   stage: deploy

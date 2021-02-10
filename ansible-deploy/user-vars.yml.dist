@@ -1,2 +1,1 @@
 gitlab_access_token: "XXXXXXXXXX" # You can find it here: https://gitlab.com/-/profile/personal_access_tokens
-ssh_private_key_file: "~/.ssh/id_rsa"
