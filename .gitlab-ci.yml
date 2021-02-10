@@ -108,9 +108,10 @@ prepare:production:
     - ssh-keyscan -H $HOST_FOR_SSH_KEYSCAN >> ~/.ssh/known_hosts
     - if [[ -f gitlab_variables ]]; then source gitlab_variables; fi
     - cd ansible-deploy
-    - 'echo "gitlab_access_token: \"${GITLAB_ACCESS_TOKEN_API}\"" > user-vars.yml'
-    - 'echo "telegram_token: \"${TELEGRAM_TOKEN}\"" > user-vars.yml'
-    - 'echo "telegram_chat_id: \"${TELEGRAM_CHAT_ID}\"" > user-vars.yml'
+    - 'echo "gitlab_access_token: \"${GITLAB_ACCESS_TOKEN_API}\"" >> user-vars.yml'
+    - 'echo "telegram_token: \"${TELEGRAM_TOKEN}\"" >> user-vars.yml'
+    - 'echo "telegram_chat_id: \"${TELEGRAM_CHAT_ID}\"" >> user-vars.yml'
+    - less user-vars.yml
 
 
 deploy:staging:
