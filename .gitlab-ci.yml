@@ -8,8 +8,23 @@ stages:
 default:
   image: jellybellydev/ci-cd-theory-into-practice:latest
 
+#Template filter
+.branch_filter: &branch_filter
+  only:
+    - branches
+
+.master_filter: &master_filter
+  only:
+    - master
+
+.tags_filter: &tags_filter
+  only:
+    - tags
+
+
 install-deps:
   stage: build
+  <<: *branch_filter
   script:
     - composer install
   artifacts:
@@ -26,11 +41,10 @@ install-deps:
       - composer.json
       - composer.lock
       - symfony.lock
-  only:
-    - branches
 
 php-cs-fixer:
   stage: test
+  <<: *branch_filter
   dependencies:
     - install-deps
   script:
@@ -38,6 +52,7 @@ php-cs-fixer:
 
 lint-yaml-config:
   stage: test
+  <<: *branch_filter
   dependencies:
     - install-deps
   script:
@@ -45,6 +60,7 @@ lint-yaml-config:
 
 phpunit:
   stage: test
+  <<: *branch_filter
   dependencies:
     - install-deps
   script:
@@ -52,6 +68,7 @@ phpunit:
 
 phpunit-coverage:
   stage: test
+  <<: *branch_filter
   dependencies:
     - install-deps
   script:
@@ -59,6 +76,7 @@ phpunit-coverage:
 
 psalm:
   stage: test
+  <<: *branch_filter
   dependencies:
     - install-deps
   script:
@@ -88,18 +106,17 @@ psalm:
 prepare:staging:
   stage: prepare
   <<: *prepare_template
+  <<: *master_filter
   before_script:
     - echo "APP_ENV=staging" >> .env.local
-  only:
-    - master
 
 prepare:production:
   stage: prepare
   <<: *prepare_template
+  <<: *tags_filter
   before_script:
     - echo "APP_ENV=prod" >> .env.local
-  only:
-    - tags
+
 
 .deploy_template: &deploy_template
   image: spy86/ansible:latest
@@ -130,11 +147,10 @@ deploy:staging:
   dependencies:
     - prepare:staging
   <<: *deploy_template
+  <<: *master_filter
   script:
     - echo "Deploy of $CI_COMMIT_REF_NAME on staging server"
     - ansible-playbook deploy.yml -i inventories/staging -e "app_version=$CI_COMMIT_REF_NAME ci_job_id=$CI_JOB_ID_ARTIFACTS"
-  only:
-    - master
 
 rollback:staging:
   stage: rollback
@@ -144,11 +160,10 @@ rollback:staging:
   when: manual
   dependencies: []
   <<: *deploy_template
+  <<: *master_filter
   script:
     - echo "Rollback of $CI_COMMIT_REF_NAME on staging server"
     - ansible-playbook rollback.yml -i inventories/staging
-  only:
-    - master
 
 
 deploy:production:
@@ -160,11 +175,10 @@ deploy:production:
   dependencies:
     - prepare:production
   <<: *deploy_template
+  <<: *tags_filter
   script:
     - echo "Deploy of $CI_COMMIT_REF_NAME on production server"
     - ansible-playbook deploy.yml -i inventories/production -e "app_version=$CI_COMMIT_TAG ci_job_id=$CI_JOB_ID_ARTIFACTS"
-  only:
-    - tags
 
 rollback:production:
   stage: rollback
@@ -174,8 +188,7 @@ rollback:production:
   when: manual
   dependencies: []
   <<: *deploy_template
+  <<: *tags_filter
   script:
     - echo "Rollback of $CI_COMMIT_TAG on production server"
     - ansible-playbook rollback.yml -i inventories/production
-  only:
-    - tags
