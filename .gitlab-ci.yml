@@ -26,6 +26,8 @@ install-deps:
       - composer.json
       - composer.lock
       - symfony.lock
+  only:
+    - branches
 
 php-cs-fixer:
   stage: test
@@ -54,6 +56,13 @@ phpunit-coverage:
     - install-deps
   script:
     - XDEBUG_MODE=coverage bin/phpunit --colors=never --coverage-text
+
+psalm:
+  stage: test
+  dependencies:
+    - install-deps
+  script:
+    - vendor/bin/psalm
 
 
 .prepare_template: &prepare_template

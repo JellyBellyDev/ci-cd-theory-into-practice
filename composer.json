@@ -25,12 +25,14 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.18",
+        "psalm/plugin-symfony": "^2.1",
         "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "5.2.*",
         "symfony/phpunit-bridge": "^5.2",
         "symfony/stopwatch": "^5.2",
         "symfony/twig-bundle": "^5.2",
-        "symfony/web-profiler-bundle": "^5.2"
+        "symfony/web-profiler-bundle": "^5.2",
+        "vimeo/psalm": "^4.5"
     },
     "config": {
         "optimize-autoloader": true,
@@ -69,6 +71,7 @@
         "docker:push": "docker push jellybellydev/ci-cd-theory-into-practice:latest",
         "php-cs-fixer": "vendor/bin/php-cs-fixer fix -v",
         "phpstan": "vendor/bin/phpstan analyse",
+        "psalm": "vendor/bin/psalm",
         "test": "bin/phpunit",
         "test-coverage": "XDEBUG_MODE=coverage bin/phpunit --coverage-text",
         "test-coverage-no-colors": "XDEBUG_MODE=coverage bin/phpunit --colors=never --coverage-text"

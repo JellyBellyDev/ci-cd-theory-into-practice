@@ -1,9 +1,21 @@
 {
+    "amphp/amp": {
+        "version": "v2.5.2"
+    },
+    "amphp/byte-stream": {
+        "version": "v1.8.0"
+    },
+    "composer/package-versions-deprecated": {
+        "version": "1.11.99.1"
+    },
     "composer/semver": {
         "version": "3.2.4"
     },
     "composer/xdebug-handler": {
         "version": "1.4.5"
+    },
+    "dnoegel/php-xdg-base-dir": {
+        "version": "v0.1.1"
     },
     "doctrine/annotations": {
         "version": "1.0",
@@ -20,6 +32,12 @@
     "doctrine/lexer": {
         "version": "1.2.1"
     },
+    "felixfbecker/advanced-json-rpc": {
+        "version": "v3.2.0"
+    },
+    "felixfbecker/language-server-protocol": {
+        "version": "v1.5.0"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "2.16",
         "recipe": {
@@ -32,8 +50,29 @@
             ".php_cs.dist"
         ]
     },
+    "netresearch/jsonmapper": {
+        "version": "v2.1.0"
+    },
+    "nikic/php-parser": {
+        "version": "v4.10.4"
+    },
+    "openlss/lib-array2xml": {
+        "version": "1.0.0"
+    },
     "php-cs-fixer/diff": {
         "version": "v1.3.1"
+    },
+    "phpdocumentor/reflection-common": {
+        "version": "2.2.0"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "5.2.2"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "1.4.0"
+    },
+    "psalm/plugin-symfony": {
+        "version": "v2.1.2"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -49,6 +88,9 @@
     },
     "roave/security-advisories": {
         "version": "dev-latest"
+    },
+    "sebastian/diff": {
+        "version": "4.0.4"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
@@ -264,5 +306,14 @@
     },
     "twig/twig": {
         "version": "v3.3.0"
+    },
+    "vimeo/psalm": {
+        "version": "4.5.0"
+    },
+    "webmozart/assert": {
+        "version": "1.9.1"
+    },
+    "webmozart/path-util": {
+        "version": "2.3.0"
     }
 }
