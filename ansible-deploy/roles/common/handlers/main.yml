@@ -6,5 +6,6 @@
   community.general.telegram:
     token: "{{telegram_token}}"
     chat_id: "{{telegram_chat_id}}"
-    msg: "🚀 Deploy of {{ app_version }} on {{ job_env }} successfully!!! 🥳"
+    msg: "🚀 Deploy of release <b>{{ app_version }}</b> on <b>{{ job_env }}</b> environment successfully!!! 🥳"
+    msg_format: "html"
   listen: "send_notify_telegram"
