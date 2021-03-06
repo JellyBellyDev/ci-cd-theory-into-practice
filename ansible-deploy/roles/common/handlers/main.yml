@@ -6,5 +6,5 @@
   community.general.telegram:
     token: "{{telegram_token}}"
     chat_id: "{{telegram_chat_id}}"
-    msg: Ansible task finished
+    msg: "🚀 Deploy of {{ app_version }} on {{ job_env }} successfully!!! 🥳"
   listen: "send_notify_telegram"
