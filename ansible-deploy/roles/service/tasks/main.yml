@@ -38,12 +38,12 @@
     path: "{{ deploy_helper.new_release_path }}/var/"
     state: absent
 
-#- name: Setup directory permissions for var/
-#  file:
-#    path: "{{ deploy_helper.new_release_path }}/var/"
-#    state: directory
-#    mode: 0777
-#    recurse: true
+- name: Setup directory permissions for var/
+  file:
+    path: "{{ deploy_helper.new_release_path }}/var/"
+    state: directory
+    mode: 0775
+    recurse: true
 
 - name: Setfacl var folder permissions
   shell: HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d ' ' -f1` &&
