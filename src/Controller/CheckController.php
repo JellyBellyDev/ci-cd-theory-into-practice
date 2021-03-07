@@ -13,6 +13,7 @@ class CheckController extends AbstractController
      */
     public function index(): Response
     {
+        //stuff to check the health of the software
         return new Response('OK');
     }
 }

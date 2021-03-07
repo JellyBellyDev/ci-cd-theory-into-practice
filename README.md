@@ -9,3 +9,5 @@
 Inside the [.gitlab-ci.yml](./.gitlab-ci.yml) file you will be able to see the configuration of the CI/CD.
 
 At the following [link](https://gitlab.com/JellyBellyDev/ci-cd-theory-into-practice/-/pipelines/254919519) you can see an example of a GitLab pipeline.
+
+This repository it's mirrored from [GitHub](https://github.com/JellyBellyDev/ci-cd-theory-into-practice) to [GitLab](https://gitlab.com/JellyBellyDev/ci-cd-theory-into-practice).
