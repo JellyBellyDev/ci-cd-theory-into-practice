@@ -64,14 +64,6 @@ phpunit:
   dependencies:
     - install-deps
   script:
-    - bin/phpunit
-
-phpunit-coverage:
-  stage: test
-  <<: *branch_filter
-  dependencies:
-    - install-deps
-  script:
     - XDEBUG_MODE=coverage bin/phpunit --colors=never --coverage-text
 
 psalm:
