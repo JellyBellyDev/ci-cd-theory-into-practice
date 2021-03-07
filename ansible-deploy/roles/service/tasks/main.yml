@@ -20,7 +20,7 @@
     remote_src: yes
   when: ci_job_id is defined
 
-# Manual Deploy
+# Bonus: Manual Deploy by CLI not in CI
 - name: Download artifact from gitlab with artifact_url
   unarchive:
     src: "{{ artifact_url }}"
@@ -28,7 +28,7 @@
     remote_src: yes
   when: ci_job_id is not defined
 
-- name: Add unfinished file
+- name: Add an unfinished file, to allow cleanup on successful finalize
   file:
     path: "{{ deploy_helper.new_release_path }}/{{ deploy_helper.unfinished_filename }}"
     state: touch
