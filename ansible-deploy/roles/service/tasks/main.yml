@@ -12,14 +12,6 @@
     path: "{{ deploy_helper.new_release_path }}"
     state: directory
 
-# Manual Deploy
-- name: Download artifact from gitlab with artifact_url
-  unarchive:
-    src: "{{ artifact_url }}"
-    dest: "{{ deploy_helper.new_release_path }}"
-    remote_src: yes
-  when: ci_job_id is not defined
-
 # Automatic Deploy
 - name: Download artifact from gitlab with artifact_url_ci
   unarchive:
@@ -28,6 +20,14 @@
     remote_src: yes
   when: ci_job_id is defined
 
+# Manual Deploy
+- name: Download artifact from gitlab with artifact_url
+  unarchive:
+    src: "{{ artifact_url }}"
+    dest: "{{ deploy_helper.new_release_path }}"
+    remote_src: yes
+  when: ci_job_id is not defined
+
 - name: Add unfinished file
   file:
     path: "{{ deploy_helper.new_release_path }}/{{ deploy_helper.unfinished_filename }}"
@@ -35,15 +35,15 @@
 
 - name: Clean var/ content
   file:
+    path: "{{ deploy_helper.new_release_path }}/var/"
     state: absent
-    path: "{{ deploy_helper.new_release_path }}/var/"
 
-- name: Setup directory permissions for var/
-  file:
-    path: "{{ deploy_helper.new_release_path }}/var/"
-    state: directory
-    mode: 0777
-    recurse: true
+#- name: Setup directory permissions for var/
+#  file:
+#    path: "{{ deploy_helper.new_release_path }}/var/"
+#    state: directory
+#    mode: 0777
+#    recurse: true
 
 - name: Setfacl var folder permissions
   shell: HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d ' ' -f1` &&

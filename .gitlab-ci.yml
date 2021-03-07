@@ -8,7 +8,8 @@ stages:
 default:
   image: jellybellydev/ci-cd-theory-into-practice:latest
 
-#Template filter
+
+## Template filter
 .branch_filter: &branch_filter
   only:
     - branches
@@ -22,6 +23,7 @@ default:
     - tags
 
 
+## Stage Build
 install-deps:
   stage: build
   <<: *branch_filter
@@ -42,6 +44,8 @@ install-deps:
       - composer.lock
       - symfony.lock
 
+
+## Stage Tests
 php-cs-fixer:
   stage: test
   <<: *branch_filter
@@ -75,6 +79,7 @@ psalm:
     - vendor/bin/psalm
 
 
+## Template to prepare artifact deployable
 .prepare_template: &prepare_template
   script:
     - composer install --no-dev --optimize-autoloader
@@ -95,6 +100,8 @@ psalm:
       - .env.local.php
       - composer.json
 
+
+## Stage Prepare
 prepare:staging:
   stage: prepare
   <<: *prepare_template
@@ -110,6 +117,7 @@ prepare:production:
     - echo "APP_ENV=prod" >> .env.local
 
 
+## Template to deploy artifact
 .deploy_template: &deploy_template
   image: spy86/ansible:latest
   before_script:
@@ -131,6 +139,7 @@ prepare:production:
     - 'echo "telegram_chat_id: \"${TELEGRAM_CHAT_ID}\"" >> user-vars.yml'
 
 
+## Deploy on staging
 deploy:staging:
   stage: deploy
   variables:
@@ -158,6 +167,7 @@ rollback:staging:
     - ansible-playbook rollback.yml -i inventories/staging
 
 
+## Deploy on production
 deploy:production:
   stage: deploy
   variables:
