@@ -4,8 +4,8 @@
 
 - name: Send a message to Telegram Group
   community.general.telegram:
-    token: "{{telegram_token}}"
-    chat_id: "{{telegram_chat_id}}"
+    token: "{{ telegram_token }}"
+    chat_id: "{{ telegram_chat_id }}"
     msg: "🚀 Deploy of release <b>{{ app_version }}</b> on <b>{{ job_env }}</b> environment successfully!!! 🥳"
     msg_format: "html"
   listen: "send_notify_telegram"
