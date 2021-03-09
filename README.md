@@ -4,7 +4,7 @@
 [![pipeline status](https://gitlab.com/JellyBellyDev/ci-cd-theory-into-practice/badges/master/pipeline.svg)](https://gitlab.com/JellyBellyDev/ci-cd-theory-into-practice/-/commits/master)
 [![coverage report](https://gitlab.com/JellyBellyDev/ci-cd-theory-into-practice/badges/master/coverage.svg)](https://gitlab.com/JellyBellyDev/ci-cd-theory-into-practice/-/commits/master)
 
-> This is a sample repository to show a possible configuration of a GitLab pipeline for a software written in php with symfony framework.
+> This is a sample repository to show a possible configuration of a GitLab pipeline and deploy with Ansible for a software written in php with Symfony framework.
 
 Inside the [.gitlab-ci.yml](./.gitlab-ci.yml) file you will be able to see the configuration of the CI/CD.
 
