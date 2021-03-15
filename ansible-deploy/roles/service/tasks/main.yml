@@ -68,7 +68,7 @@
   when: previous_release_path_status.stat.exists
 
 - name: Check cachetool.phar already exists
-  stat: path="{{deploy_helper.shared_path}}/cachetool.phar"
+  stat: path="{{ deploy_helper.shared_path }}/cachetool.phar"
   register: stat_cachetool_result
 
 - name: Download cachetool.phar
