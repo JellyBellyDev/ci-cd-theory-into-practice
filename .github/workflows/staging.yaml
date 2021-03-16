@@ -1,0 +1,41 @@
+name: Deploy on Staging
+
+on:
+  push:
+    branches:
+      - master
+      - feat/github-actions-tests
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    container: jellybellydev/ci-cd-theory-into-practice:latest
+
+    name: "CI⚡CD: the theory put into practice"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Prepare artifact deployable
+        run: |
+          echo "APP_ENV=staging" >> .env.local
+          composer install --no-dev --optimize-autoloader
+          composer dump-autoload --no-dev --classmap-authoritative
+          composer dump-env
+
+      - name: Publish artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: staging-artifact
+          path: |
+            bin/**
+            config/**
+            public/**
+            src/**
+            vendor/**
+            .env
+            .env.local
+            .env.local.php
+            composer.json
