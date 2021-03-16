@@ -38,9 +38,11 @@ install-deps:
       - src/**
       - vendor/**
       - .env
+      - .env.test
       - .php_cs.dist
       - composer.json
       - composer.lock
+      - psalm.xml
       - symfony.lock
 
 
