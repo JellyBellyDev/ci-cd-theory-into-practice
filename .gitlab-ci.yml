@@ -31,7 +31,6 @@ install-deps:
     - composer install
   artifacts:
     expire_in: 3 hours
-    untracked: true
     paths:
       - bin/**
       - config/**
@@ -88,7 +87,6 @@ psalm:
     - echo "export CI_JOB_ID_ARTIFACTS=\"$(echo "$CI_JOB_ID")\"" > gitlab_variables
   artifacts:
     expire_in: 3 hours
-    untracked: true
     paths:
       - bin/**
       - config/**
@@ -99,6 +97,7 @@ psalm:
       - .env.local
       - .env.local.php
       - composer.json
+      - gitlab_variables
 
 
 ## Stage Prepare
