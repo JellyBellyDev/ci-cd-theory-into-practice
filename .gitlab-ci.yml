@@ -36,6 +36,9 @@ install-deps:
       - config/**
       - public/**
       - src/**
+      - templates/**
+      - tests/**
+      - var/**
       - vendor/**
       - .env
       - .env.test
