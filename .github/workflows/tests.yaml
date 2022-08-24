@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    container: jellybellydev/ci-cd-theory-into-practice:latest
+
+    name: "CI⚡CD: the theory put into practice"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Check php-cs-fixer
+        run: vendor/bin/php-cs-fixer fix --verbose --diff --dry-run
+
+      - name: Lint yaml config
+        run: bin/console lint:yaml config
+
+      - name: Phpunit
+        run: XDEBUG_MODE=coverage bin/phpunit --colors=never --coverage-text
+
+      - name: Psalm
+        run: vendor/bin/psalm
